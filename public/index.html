@@ -1,0 +1,31 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <!-- 1. Load message-bus scripts -->
+    <script src="%PUBLIC_URL%/message-bus.js"></script>
+    <script src="%PUBLIC_URL%/message-bus-ajax.js"></script>
+
+    <!-- 2. Set baseUrl (AFTER scripts are loaded, NOT before) -->
+    <script>
+      console.log("Setting MessageBus baseUrl...");
+      
+      // Ensure the baseUrl is set correctly BEFORE the start
+      if (typeof MessageBus !== 'undefined') {
+        MessageBus.baseUrl = "http://localhost:4200/";  // <-- Set to your Discourse backend
+        console.log("MessageBus baseUrl set to:", MessageBus.baseUrl);
+        
+        // Start MessageBus once baseUrl is set
+        MessageBus.start();
+      } else {
+        console.error("MessageBus is not defined yet. Make sure scripts are loaded in order.");
+      }
+    </script>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>

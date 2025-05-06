@@ -5,17 +5,12 @@ export default function NotificationBell({ userId }) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    const channel = `/topic/17`;
+    const channel = `/notification/2`;
     const handler = (msg) => {
       console.log("Received:", msg);
-      if (msg.post_number === undefined) {
-        console.log("Received without post_number:", msg);
-        return;
-      }
-      setCount(msg.post_number)
     };
 
-    MessageBus.subscribe(channel, handler, 0);
+    MessageBus.subscribe(channel, handler, -1);
     return () => MessageBus.unsubscribe(channel, handler);
   }, [userId]);
 
